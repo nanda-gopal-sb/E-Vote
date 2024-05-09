@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "gun": "^0.2020.1240"
   }
 }

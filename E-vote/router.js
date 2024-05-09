@@ -1,14 +1,18 @@
 function handleButtonClick(page) {
     window.location.hash = page;
 }
+// function Route(){
+//     window.location.href = "./startup_page/pg.html";
 
+// }
 document.getElementById("voterBtn").addEventListener("click", function() {
+    console.log("LOL");
     // Directly navigate to the "voterlogin.html" page
-    window.location.href = "../voter_login/voterlogin.html";
+    window.location.href = "./voter_login/voterlogin.html";
 });
 document.getElementById("candidateBtn").addEventListener("click", function() {
     // Directly navigate to the "voterlogin.html" page
-    window.location.href = "../candidate_page/candidate.html";
+    window.location.href = "./candidate_page/candidate.html";
 });
 
 
