@@ -8,7 +8,7 @@ import 'gun/lib/radisk'
 import 'gun/lib/rindexed'
 
 const peers = [
-  'http://localhost:3000/gun',
+  'http://localhost:5173/',
   'https://gun-manhattan.herokuapp.com/gun'
 ]
 

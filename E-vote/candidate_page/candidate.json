@@ -1,6 +1,4 @@
 {
-    "candidate":{
-
     "candidate":[
     {
       "id":"1",
@@ -136,9 +134,6 @@
     "name":"George",
     "constituency":"002",
     "votesRecieved":"0"
-     
-
   }
  ]
-}
 }
