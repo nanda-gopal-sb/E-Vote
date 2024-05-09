@@ -54,3 +54,15 @@ function loadPageContent() {
 
 window.addEventListener("hashchange", loadPageContent);
 window.addEventListener("load", loadPageContent);
+//document.getElementById("voter-login-form").addEventListener("submit", function(event) {
+    // Prevent the default form submission behavior
+  //  event.preventDefault();
+
+    // Get the voter ID input value
+    //const voterId = document.getElementById("voter-id").value;
+
+    // Perform any necessary validation of the voter ID here
+
+    // Redirect the user to voting.html
+    //window.location.href = "./voting_page/voting.html";
+//});
