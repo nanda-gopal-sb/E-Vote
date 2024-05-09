@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c7e4ff;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#startElectionBtn {
+    padding: 10px 20px;
+    background-color: #01659a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width:25vh;
+    height:40px;
+}
+
+#startElectionBtn:hover {
+    background-color: #013551;
+}
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #4d4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #6160604d;
+}

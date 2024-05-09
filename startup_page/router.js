@@ -10,6 +10,10 @@ document.getElementById("candidateBtn").addEventListener("click", function() {
     // Directly navigate to the "voterlogin.html" page
     window.location.href = "../candidate_page/candidate.html";
 });
+document.getElementById("voterControllerBtn").addEventListener("click", function() {
+    // Directly navigate to the "voterlogin.html" page
+    window.location.href = "../voter_controller/votercontroller.html";
+});
 
 
 
@@ -39,11 +43,11 @@ function loadPageContent() {
             break;
         case "voterController":
             // Load content for "voterController" route
-            contentDiv.innerHTML = "Voter controller content"; // Update with actual content loading logic
+            //contentDiv.innerHTML = "Voter controller content"; // Update with actual content loading logic
             break;
         default:
             // Handle other cases or default behavior
-            contentDiv.innerHTML = "Default content"; // Update with actual default content
+            //contentDiv.innerHTML = "Default content"; // Update with actual default content
             break;
     }
 }
