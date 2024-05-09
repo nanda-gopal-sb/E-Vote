@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 20px;
+    font-size: 40px;
+}
+
+.voterlogin-form {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add margin between header and form */
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.voterlogin-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #017e8e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.voterlogin-form input:hover,
+.submit-btn:hover {
+    background-color: #bec2c5;
+    border-color: #999;
+}
+.voterlogin-form input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+}
+.voterlogin-form input,
+.submit-btn {
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.voterlogin-form input::placeholder {
+    color: #999;
+}
+
