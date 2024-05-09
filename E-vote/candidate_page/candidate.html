@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Candidate List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>this is candidate page</h1>
+    <div class="container">
+        <h1>Candidate List</h1>
+        <div class="select-container">
+            <label for="constituencySelect">Select Constituency:</label>
+            <select id="constituencySelect" class="select">
+                <option value="001">Constituency 1</option>
+                <option value="002">Constituency 2</option>
+                <option value="003">Constituency 3</option>
+            </select>
+        </div>
+
+        <ul id="candidateList" class="candidate-list">
+            <!-- Candidate list items will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
