@@ -1,0 +1,144 @@
+{
+    "candidate":{
+
+    "candidate":[
+    {
+      "id":"1",
+      "party":"Independent",
+      "name":"Maria",
+      "constituency":"001",
+      "votesRecieved":"0"
+       
+  
+    },
+    {
+        "id":"2",
+        "party":"Independent",
+        "name":"Rahul",
+        "constituency":"003",
+        "votesRecieved":"0"
+         
+    
+    },
+    {
+        "id":"3",
+        "party":"A",
+        "name":"Sanjay",
+        "constituency":"001",
+        "votesRecieved":"0"
+         
+    
+    },
+    {
+        "id":"4",
+        "party":"Independent",
+        "name":"Sanjeev",
+        "constituency":"003",
+        "votesRecieved":"0"
+         
+    
+    },
+    {
+        "id":"5",
+        "party":"Independent",
+        "name":"Nandagopal",
+        "constituency":"001",
+        "votesRecieved":"0"
+         
+    
+    },
+    {
+        "id":"6",
+        "party":"A",
+        "name":"Mariam",
+        "constituency":"002",
+        "votesRecieved":"0"
+         
+    
+    },
+    {
+        "id":"7",
+        "party":"C",
+        "name":"Andrew",
+        "constituency":"003",
+        "votesRecieved":"0"
+         
+    
+   },
+   {
+        "id":"8",
+        "party":"Independent",
+        "name":"Emmanuel",
+        "constituency":"002",
+        "votesRecieved":"0"
+         
+
+  },
+  {
+        "id":"9",
+        "party":"Independent",
+        "name":"Madhav",
+        "constituency":"001",
+        "votesRecieved":"0"
+         
+
+    
+
+  },
+  {
+       "id":"10",
+       "party":"B",
+       "name":"Krishna",
+        "constituency":"001",
+       "votesRecieved":"0"
+        
+
+  },
+  { 
+    "id":"11",
+    "party":"A",
+    "name":"Bharath",
+    "constituency":"002",
+    "votesRecieved":"0"
+     
+
+  },
+  {
+    "id":"12",
+    "party":"C",
+    "name":"Alex",
+    "constituency":"003",
+    "votesRecieved":"0"
+     
+
+  },
+  {
+    "id":"13",
+    "party":"B",
+    "name":"Joseph",
+    "constituency":"003",
+    "votesRecieved":"0"
+     
+
+  },
+  {
+    "id":"14",
+    "party":"C",
+    "name":"Rinku",
+    "constituency":"002",
+    "votesRecieved":"0"
+     
+
+  },
+  {
+    "id":"15",
+    "party":"B",
+    "name":"George",
+    "constituency":"002",
+    "votesRecieved":"0"
+     
+
+  }
+ ]
+}
+}
