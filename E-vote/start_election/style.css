@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #c7e4ff;
+
+}
+
+button#start-election-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #017e8e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#start-election-btn:hover {
+    background-color:#bec2c5;
+}
