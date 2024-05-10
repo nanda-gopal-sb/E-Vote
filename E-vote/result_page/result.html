@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Result Page</h2>
+        <div class="dropdown">
+            <label for="constituency">Select Constituency:</label>
+            <select id="constituency">
+                <option value="001">Constituency 001</option>
+                <option value="002">Constituency 002</option>
+                <option value="003">Constituency 003</option>
+            </select>
+        </div>
+        <div id="voter-count-container">
+            <p>Total Votes: <span id="voter-count">0</span></p>
+        </div>
+        <div id="candidate-info-container">
+            <table id="candidate-info-table">
+                <thead>
+                    <tr>
+                        <th>Candidate</th>
+                        <th>Total Votes</th>
+                    </tr>
+                </thead>
+                <tbody id="candidate-info-body">
+                    <!-- Candidate info rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
