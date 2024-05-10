@@ -1,4 +1,3 @@
-// Function to fetch candidate data from JSON file
 async function fetchCandidateData() {
     try {
         const response = await fetch('candidate.json');

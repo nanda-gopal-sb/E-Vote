@@ -70,18 +70,16 @@ document.getElementById("submit-btn").addEventListener("click", async function(e
       if(voterId == voterData.voter.voter[i].voterid)
       {
           isValidVoter = true;
-          let user = gun.get(`${voterId}`);
-          user.put({ isLoggedin: "true" });
+          gun.get(`${voterId}`).put({ isLoggedin: "true" });
+          console.log(gun.get(`${voterId}`));
           break; // No need to continue checking once a valid voter ID is found
       }
   }
-  
   if (isValidVoter) {
       const queryParams = { voterId: voterId };
       const url = `../voting_page/voting.html?${queryString.stringify(queryParams)}`;
       window.location.href = url;
   } else {
       alert("Invalid voter ID. Please try again.");
-      
   }
 });

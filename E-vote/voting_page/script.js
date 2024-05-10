@@ -1,57 +1,97 @@
-document.addEventListener("DOMContentLoaded", async function() {
-    const params = new URLSearchParams(window.location.search);
-    const voterId = params.get('voterId');
+import { gun } from "../gun";
+let params; 
+let voterId; 
+let over = false; 
+document.addEventListener("DOMContentLoaded",Ac);   
+async function Ac(){
+    params = new URLSearchParams(window.location.search);
+    voterId = params.get('voterId');
 
-    // Fetch voter data
-    const voterResponse = await fetch('voter.json');
-    const voterData = await voterResponse.json();
-
-    // Find the voter
-    const voter = voterData.voter.voter.find(voter => voter.voterid === voterId);
+    const voter = await fetchVoter(voterId);
 
     if (voter) {
-        // Display voter's name
-        document.getElementById('voter-name').textContent = voter.name;
+        displayVoterInfo(voter);
 
-        // Display constituency name directly from voter's constituency ID
         const constituencyId = voter.constituency;
-        document.getElementById('constituency-name').textContent = `Constituency: ${constituencyId}`;
+        displayConstituencyName(constituencyId);
 
-        // Fetch candidate data
-        const candidateResponse = await fetch('candidate.json');
-        const candidateData = await candidateResponse.json();
-
-        // Find candidates for the voter's constituency
-        const candidatesForConstituency = candidateData.candidate.candidate.filter(candidate => candidate.constituency === constituencyId);
-
-        const candidatesContainer = document.querySelector('.candidates');
-
-        // Populate candidates dynamically
-        candidatesForConstituency.forEach(candidate => {
-            const candidateDiv = document.createElement('div');
-            candidateDiv.classList.add('candidate');
-
-            const candidateName = document.createElement('div');
-            candidateName.classList.add('candidate-name');
-            candidateName.textContent = `Candidate: ${candidate.name}`;
-
-            const partyName = document.createElement('div');
-            partyName.classList.add('party-name');
-            partyName.textContent = `Party: ${candidate.party}`;
-
-            const voteButton = document.createElement('button');
-            voteButton.textContent = 'Vote';
-            voteButton.addEventListener('click', function() {
-                alert(`You voted for ${candidate.name}  ${candidate.party}`);
-            });
-
-            candidateDiv.appendChild(candidateName);
-            candidateDiv.appendChild(partyName);
-            candidateDiv.appendChild(voteButton);
-
-            candidatesContainer.appendChild(candidateDiv);
-        });
+        const candidatesForConstituency = await fetchCandidatesForConstituency(constituencyId);
+        populateCandidates(candidatesForConstituency);
     } else {
         alert('Invalid voter ID. Please try again.');
     }
-});
+}
+async function votes() {
+    const voterResponse = await fetch('voter.json');
+    const voterData = await voterResponse.json();
+    return voterData;
+}
+async function fetchVoter(voterId) {
+    const voterResponse = await fetch('voter.json');
+    const voterData = await voterResponse.json();
+    return voterData.voter.voter.find(voter => voter.voterid === voterId);
+}
+
+function displayVoterInfo(voter) {
+    document.getElementById('voter-name').textContent = voter.name;
+}
+
+function displayConstituencyName(constituencyId) {
+    document.getElementById('constituency-name').textContent = `Constituency: ${constituencyId}`;
+}
+async function fetchCandidatesForConstituency(constituencyId) {
+    const candidateResponse = await fetch('candidate.json');
+    const candidateData = await candidateResponse.json();
+    return candidateData.candidate.candidate.filter(candidate => candidate.constituency === constituencyId);
+}
+
+function populateCandidates(candidatesForConstituency) {
+    const candidatesContainer = document.querySelector('.candidates');
+    candidatesForConstituency.forEach(candidate => {
+        const candidateDiv = createCandidateElement(candidate);
+        candidatesContainer.appendChild(candidateDiv);
+    });
+}
+
+function createCandidateElement(candidate) {
+    const candidateDiv = document.createElement('div');
+    candidateDiv.classList.add('candidate');
+
+    const candidateName = document.createElement('div');
+    candidateName.classList.add('candidate-name');
+    candidateName.textContent = `Candidate: ${candidate.name}`;
+
+    const partyName = document.createElement('div');
+    partyName.classList.add('party-name');
+    partyName.textContent = `Party: ${candidate.party}`;
+
+    const voteButton = createVoteButton(candidate);
+
+    candidateDiv.appendChild(candidateName);
+    candidateDiv.appendChild(partyName);
+    candidateDiv.appendChild(voteButton);
+
+    return candidateDiv;
+}
+
+function createVoteButton(candidate) {
+    const voterData = votes();
+    
+    const voteButton = document.createElement('button');
+    voteButton.textContent = 'Vote';
+    voteButton.addEventListener('click', function() {
+        if(!over){
+            candidate.votesRecieved++;
+                gun.get(`${voterId}`).get('votes').put(candidate);
+                gun.get(`${voterId}`).get('votes').on(candidate => {
+                    console.log(candidate);
+                });
+                alert(`You voted for ${candidate.name}  ${candidate.party}  ${candidate.votesRecieved}`);
+                over = true; 
+        }     
+        else{
+            alert(`already voted`);
+        }     
+    });
+    return voteButton;
+}

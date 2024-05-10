@@ -14,7 +14,7 @@ const peers = [
 
 const gun = Gun({
   peers,
-  localStorage: false
+  localStorage: true
 })
 
 const user = gun.user().recall({ sessionStorage: true })
