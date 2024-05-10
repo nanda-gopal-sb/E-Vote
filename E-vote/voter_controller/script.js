@@ -8,3 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = '../start_election/start.html';
     });
 });
+async function fetchVoter(voterId) {
+    const voterResponse = await fetch('voter.json');
+    const voterData = await voterResponse.json();
+    return voterData.voter.voter.find(voter => voter.voterid === voterId);
+}
+async function fetchCandidatesForConstituency(constituencyId) {
+    const candidateResponse = await fetch('candidate.json');
+    const candidateData = await candidateResponse.json();
+    return candidateData.candidate.candidate.filter(candidate => candidate.constituency === constituencyId);
+}

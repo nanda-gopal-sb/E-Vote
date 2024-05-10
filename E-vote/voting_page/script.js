@@ -56,17 +56,6 @@ function populateCandidates(candidatesForConstituency) {
 function createCandidateElement(candidate) {
     const candidateDiv = document.createElement('div');
     candidateDiv.classList.add('candidate');
-function populateCandidates(candidatesForConstituency) {
-    const candidatesContainer = document.querySelector('.candidates');
-    candidatesForConstituency.forEach(candidate => {
-        const candidateDiv = createCandidateElement(candidate);
-        candidatesContainer.appendChild(candidateDiv);
-    });
-}
-
-function createCandidateElement(candidate) {
-    const candidateDiv = document.createElement('div');
-    candidateDiv.classList.add('candidate');
 
     const candidateName = document.createElement('div');
     candidateName.classList.add('candidate-name');
@@ -86,10 +75,23 @@ function createCandidateElement(candidate) {
 }
 
 function createVoteButton(candidate) {
+    const voterData = votes();
+    
     const voteButton = document.createElement('button');
     voteButton.textContent = 'Vote';
     voteButton.addEventListener('click', function() {
-        alert(`You voted for ${candidate.name}  ${candidate.party}`);
+        if(!over){
+            candidate.votesRecieved++;
+                gun.get(`${voterId}`).get('votes').put(candidate);
+                gun.get(`${voterId}`).get('votes').on(candidate => {
+                    console.log(candidate);
+                });
+                alert(`You voted for ${candidate.name}  ${candidate.party}  ${candidate.votesRecieved}`);
+                over = true; 
+        }     
+        else{
+            alert(`already voted`);
+        }     
     });
     return voteButton;
 }

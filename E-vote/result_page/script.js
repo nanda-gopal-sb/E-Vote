@@ -1,15 +1,29 @@
+import { gun } from "../gun";
+function GetVotes(voterIds,candidateName){
+        let votes; 
+        for(let i = 0 ; i<voterIds.lenngth; i++)
+        {
+            gun.get(`${voterIds[i]}`).get('votes').once(candidate => {
+            if(candidate.votesRecieved =="1" && candidate.name == candidateName){
+                votes++;
+                
+            }
+        }    
+    )
+    return votes; 
+    }}
 document.addEventListener("DOMContentLoaded", function() {
     const dropdown = document.getElementById('constituency');
     const voterCountDisplay = document.getElementById('voter-count');
     const candidateInfoBody = document.getElementById('candidate-info-body');
     const voterNameDisplay = document.getElementById('voter-name');
     const constituencyNameDisplay = document.getElementById('constituency-name');
-
+    
     // Load voter data from JSON
     fetch('voter.json')
         .then(response => response.json())
         .then(data => {
-            const voterData = data.voter;
+            const voterData = data.voter.voter;
             // Add event listener to the dropdown menu
             dropdown.addEventListener('change', function() {
                 const selectedConstituency = dropdown.value;
@@ -32,14 +46,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 fetch('candidate.json')
                     .then(response => response.json())
                     .then(data => {
-                        const candidateData = data.candidate;
+                        const candidateData = data.candidate.candidate;
                         // Filter candidate data based on selected constituency
                         const candidatesForConstituency = candidateData.filter(candidate => candidate.constituency === selectedConstituency);
-
+                        console.log(candidatesForConstituency);
                         // Populate candidates dynamically
                         candidatesForConstituency.forEach(candidate => {
                             const row = document.createElement('tr');
-                            row.innerHTML = `<td>${candidate.name}</td><td>${candidate.votesReceived}</td>`;
+                            row.innerHTML = `<td>${candidate.name}</td><td>${GetVotes(votersInConstituency,candidate.name)}</td>`;
                             candidateInfoBody.appendChild(row);
                         });
                     })
@@ -58,9 +72,9 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('voter.json')
         .then(response => response.json())
         .then(data => {
-            const voterData = data.voter;
+            const voterData = data.voter.voter;
             // Find the voter
-            const voter = voterData.find(voter => voter.voterid === voterId);
+            const voter = voterData.find(voter => voter.voterid == voterId);
 
             if (voter) {
                 // Display voter's name
@@ -76,5 +90,4 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => {
             console.error('Error fetching voter data:', error);
         });
-});
-
+})
