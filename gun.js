@@ -8,9 +8,10 @@ import 'gun/lib/radisk'
 import 'gun/lib/rindexed'
 
 const peers = [
-  'http://localhost:5173/',
-  'https://gun-manhattan.herokuapp.com/gun'
-]
+  // 'http://localhost:8765/gun', // Optional: Keep for local dev if running local relay
+  'https://e-vote-zk13.onrender.com/gun' // YOUR DEPLOYED RELAY URL
+];
+
 
 const gun = Gun({
   peers,
