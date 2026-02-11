@@ -1,43 +1,24 @@
 import { gun } from "../gun";
-function GetVotes(voterIds,candidateName){
-        let votes; 
-        for(let i = 0 ; i<voterIds.lenngth; i++)
-        {
-            gun.get(`${voterIds[i]}`).get('votes').once(candidate => {
-            if(candidate.votesRecieved =="1" && candidate.name == candidateName){
-                votes++;
-                
-            }
-        }    
-    )
-    return votes; 
-    }}
-document.addEventListener("DOMContentLoaded", function() {
+
+document.addEventListener("DOMContentLoaded", function () {
     const dropdown = document.getElementById('constituency');
     const voterCountDisplay = document.getElementById('voter-count');
     const candidateInfoBody = document.getElementById('candidate-info-body');
     const voterNameDisplay = document.getElementById('voter-name');
     const constituencyNameDisplay = document.getElementById('constituency-name');
-    
+
     // Load voter data from JSON
     fetch('voter.json')
         .then(response => response.json())
         .then(data => {
             const voterData = data.voter.voter;
-            // Add event listener to the dropdown menu
-            dropdown.addEventListener('change', function() {
-                const selectedConstituency = dropdown.value;
-                
+            const loadConstituencyData = (selectedConstituency) => {
                 // Filter voter data based on selected constituency
                 const votersInConstituency = voterData.filter(voter => voter.constituency === selectedConstituency);
-                
-                // Count the number of voters who have voted
-                const votedCount = votersInConstituency.reduce((count, voter) => {
-                    return count + (voter.isVoted === 'true' ? 1 : 0);
-                }, 0);
 
-                // Display the count on the page
-                voterCountDisplay.textContent = votedCount;
+                // Reset counts
+                let realTimeVotedCount = 0;
+                voterCountDisplay.textContent = 0;
 
                 // Clear previous candidate info
                 candidateInfoBody.innerHTML = '';
@@ -50,17 +31,44 @@ document.addEventListener("DOMContentLoaded", function() {
                         // Filter candidate data based on selected constituency
                         const candidatesForConstituency = candidateData.filter(candidate => candidate.constituency === selectedConstituency);
                         console.log(candidatesForConstituency);
-                        // Populate candidates dynamically
+
+                        // Populate candidates with 0 votes initially
                         candidatesForConstituency.forEach(candidate => {
                             const row = document.createElement('tr');
-                            row.innerHTML = `<td>${candidate.name}</td><td>${GetVotes(votersInConstituency,candidate.name)}</td>`;
+                            row.innerHTML = `<td>${candidate.name}</td><td id="vote-count-${candidate.id}">0</td>`;
                             candidateInfoBody.appendChild(row);
+                        });
+
+                        // Calculate votes from GunDB
+                        votersInConstituency.forEach(voter => {
+                            gun.get(`${voter.voterid}`).get('votes').once((voteData) => {
+                                if (voteData && voteData.id) {
+                                    // Increment turnout
+                                    realTimeVotedCount++;
+                                    voterCountDisplay.textContent = realTimeVotedCount;
+
+                                    // Increment candidate vote
+                                    const countCell = document.getElementById(`vote-count-${voteData.id}`);
+                                    if (countCell) {
+                                        let currentCount = parseInt(countCell.textContent);
+                                        countCell.textContent = currentCount + 1;
+                                    }
+                                }
+                            });
                         });
                     })
                     .catch(error => {
                         console.error('Error fetching candidate data:', error);
                     });
+            };
+
+            // Add event listener to the dropdown menu
+            dropdown.addEventListener('change', function () {
+                loadConstituencyData(this.value);
             });
+
+            // Initial load
+            loadConstituencyData(dropdown.value);
         })
         .catch(error => {
             console.error('Error fetching voter data:', error);

@@ -81,13 +81,13 @@ function createVoteButton(candidate) {
     voteButton.textContent = 'Vote';
     voteButton.addEventListener('click', function() {
         if(!over){
-            candidate.votesRecieved++;
-                gun.get(`${voterId}`).get('votes').put(candidate);
-                gun.get(`${voterId}`).get('votes').on(candidate => {
-                    console.log(candidate);
-                });
-                alert(`You voted for ${candidate.name}  ${candidate.party}  ${candidate.votesRecieved}`);
-                over = true; 
+            candidate.votesRecieved = 1; // Mark as voted
+            gun.get(`${voterId}`).get('votes').put(candidate);
+            gun.get(`${voterId}`).get('votes').once(savedCandidate => {
+                console.log("Vote saved for:", savedCandidate.name);
+            });
+            alert(`You voted for ${candidate.name} (${candidate.party})`);
+            over = true;
         }     
         else{
             alert(`already voted`);
