@@ -1,9 +1,9 @@
-const express = require('express');
-const Gun = require('gun');
+import express from 'express';
+import Gun, { serve } from 'gun';
 const app = express();
 const port = process.env.PORT || 8765;
 
-app.use(Gun.serve);
+app.use(serve);
 
 const server = app.listen(port, () => {
     console.log("Relay server listening on port " + port);
