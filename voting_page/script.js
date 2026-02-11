@@ -1,9 +1,9 @@
 import { gun } from "../gun";
-let params; 
-let voterId; 
-let over = false; 
-document.addEventListener("DOMContentLoaded",Ac);   
-async function Ac(){
+let params;
+let voterId;
+let over = false;
+document.addEventListener("DOMContentLoaded", Ac);
+async function Ac() {
     params = new URLSearchParams(window.location.search);
     voterId = params.get('voterId');
 
@@ -75,23 +75,67 @@ function createCandidateElement(candidate) {
 }
 
 function createVoteButton(candidate) {
-    const voterData = votes();
-    
     const voteButton = document.createElement('button');
     voteButton.textContent = 'Vote';
-    voteButton.addEventListener('click', function() {
-        if(!over){
+
+    voteButton.addEventListener('click', function () {
+        if (!over) {
             candidate.votesRecieved = 1; // Mark as voted
             gun.get(`${voterId}`).get('votes').put(candidate);
             gun.get(`${voterId}`).get('votes').once(savedCandidate => {
                 console.log("Vote saved for:", savedCandidate.name);
             });
-            alert(`You voted for ${candidate.name} (${candidate.party})`);
+
+            showToast(`You voted for ${candidate.name} (${candidate.party})`);
             over = true;
-        }     
-        else{
-            alert(`already voted`);
-        }     
+
+            // UI Feedback
+            this.textContent = 'Voted';
+            this.style.backgroundColor = '#10B981'; // Green color from CSS var
+
+            // Disable all buttons
+            const allButtons = document.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                if (btn !== this) {
+                    btn.style.opacity = '0.5';
+                }
+            });
+        }
+        else {
+            showToast('You have already voted!', 'error');
+        }
     });
     return voteButton;
+}
+
+function showToast(message, type = 'success') {
+    // Create toast container if needed, but we style .toast directly
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+
+    if (type === 'error') {
+        toast.style.backgroundColor = '#EF4444'; // Red for error
+    }
+
+    document.body.appendChild(toast);
+
+    // Trigger reflow
+    toast.offsetHeight;
+
+    // Show
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+
+    // Hide and remove
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (document.body.contains(toast)) {
+                document.body.removeChild(toast);
+            }
+        }, 300);
+    }, 3000);
 }

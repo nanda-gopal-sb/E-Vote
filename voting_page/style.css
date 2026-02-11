@@ -1,61 +1,125 @@
+:root {
+    --primary-color: #4F46E5;
+    --secondary-color: #10B981;
+    --background-color: #F3F4F6;
+    --surface-color: #FFFFFF;
+    --text-color: #1F2937;
+    --text-secondary: #6B7280;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 0.5rem;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #c7e4ff;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    line-height: 1.5;
 }
 
 .container {
     max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--surface-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 .voter-info {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 1rem;
 }
 
 #voter-name {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
 }
 
 #constituency-name {
-    font-size: 18px;
-    color: #666;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
 }
 
 .candidate {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background-color: var(--surface-color);
+    border: 1px solid #E5E7EB;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+}
+
+.candidate:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary-color);
 }
 
 .candidate-info {
-    font-size: 16px;
-    color: #555;
+    flex-grow: 1;
+}
+
+.candidate-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.party-name {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 button {
-    padding: 10px 20px;
-    background-color:#017e8e;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--radius);
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 button:hover {
-    background-color:#bec2c5;
+    background-color: #4338ca;
+}
+
+button:disabled {
+    background-color: #D1D5DB;
+    cursor: not-allowed;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    font-weight: 600;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
 }
